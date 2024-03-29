@@ -1,12 +1,14 @@
 import { targetMap } from "./target.js";
 
-export function trigger(target) {
+export function trigger(target, prop) {
   let depsMap = targetMap.get(target);
   if(!depsMap) {
     return
   }
 
-  depsMap.forEach(dep => {
-    dep.forEach(eff => eff());
-  });
+  const set = depsMap.get(prop);
+  if (!set)
+    return
+
+  set.forEach(eff => eff())
 }

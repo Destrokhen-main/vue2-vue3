@@ -1,4 +1,4 @@
-import { ref, reactive } from './reactive.js'
+import { ref, reactive, computed } from './reactive.js'
 
 export const component = {
   setup() {
@@ -13,9 +13,11 @@ export const component = {
       b: 2
     })
 
-    return { A, B, obj, click }
+    const C = computed(() => A.value + B.value)
+
+    return { A, B, C, obj, click }
   },
   render($setup) {
-    return `${$setup.A.value} + ${$setup.B.value} = ${$setup.A.value + $setup.B.value}`
+    return `${$setup.A.value} + ${$setup.B.value} = ${$setup.C.value}`
   }
 }

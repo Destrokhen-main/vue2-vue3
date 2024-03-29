@@ -1,9 +1,20 @@
 import { RefImp } from "./Dep.js";
 import { track } from "./track.js";
 import { trigger } from "./trigger.js";
+import { effect } from "./effect.js"
 
 export function ref(value) {
   return new RefImp(value);
+}
+
+export function computed(getter) {
+  const res = ref();
+
+  effect(() => {
+    res.value = getter()
+  })
+
+  return res;
 }
 
 export function reactive(obj) {
