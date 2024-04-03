@@ -10,6 +10,7 @@ import { trigger } from "./trigger.js";
  *    'key' : [effect()]
  *  }
  * }
+ *
  */
 
 export class RefImp {

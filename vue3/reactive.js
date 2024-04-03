@@ -19,16 +19,36 @@ export function computed(getter) {
 
 export function reactive(obj) {
   const proxy = new Proxy(obj, {
-    get(t, p) {
-      track(this, p);
-      return t[p]; // Reflect.get(t,p);
+    get(target, prop) {
+      track(this, prop);
+      return target[prop]; // Reflect.get(target, prop);
     },
-    set(t, p, v) {
-      const res = Reflect.set(t, p, v) // true / false // t[p] = v;
-      trigger(this, p);
+    set(target, prop, value) {
+      // true / false // target[prop] = value;
+      const res = Reflect.set(target, prop, value)
+      trigger(this, prop);
       return res;
     }
   })
 
   return proxy;
 } 
+
+
+const obj = new Proxy({
+  a: 1,
+  b: 2,
+  c: {
+    a: 1,
+    b: 2,
+  }
+}, {
+  get(target, prop) {
+    console.log(`get ${prop}`);
+    return Reflect.get(target, prop)
+  },
+  set(target, prop, value) {
+    console.log(`set ${prop} = ${value}`)
+    return Reflect.set(target, prop, value)
+  }
+})
