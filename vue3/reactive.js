@@ -24,10 +24,10 @@ export function reactive(obj) {
       return target[prop]; // Reflect.get(target, prop);
     },
     set(target, prop, value) {
-      // true / false // target[prop] = value;
+      // target[prop] = value;
       const res = Reflect.set(target, prop, value)
       trigger(this, prop);
-      return res;
+      return res; // true / false
     }
   })
 
@@ -35,20 +35,20 @@ export function reactive(obj) {
 } 
 
 
-const obj = new Proxy({
-  a: 1,
-  b: 2,
-  c: {
-    a: 1,
-    b: 2,
-  }
-}, {
-  get(target, prop) {
-    console.log(`get ${prop}`);
-    return Reflect.get(target, prop)
-  },
-  set(target, prop, value) {
-    console.log(`set ${prop} = ${value}`)
-    return Reflect.set(target, prop, value)
-  }
-})
+// const obj = new Proxy({
+//   a: 1,
+//   b: 2,
+//   c: {
+//     a: 1,
+//     b: 2,
+//   }
+// }, {
+//   get(target, prop) {
+//     console.log(`get ${prop}`);
+//     return Reflect.get(target, prop)
+//   },
+//   set(target, prop, value) {
+//     console.log(`set ${prop} = ${value}`)
+//     return Reflect.set(target, prop, value)
+//   }
+// })
